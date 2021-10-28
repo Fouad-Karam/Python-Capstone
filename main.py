@@ -10,11 +10,14 @@ current_card = {}
 
 
 def next_card():
-    global current_card
-    current_card = random.choice(to_learn)
-    canvas.itemconfig(card_title, text="Table")
-    canvas.itemconfig(card_word, text=current_card["Table"])
-    canvas.itemconfig(card_background, image=card_front_img)
+    try:
+        global current_card
+        current_card = random.choice(to_learn)
+        canvas.itemconfig(card_title, text="Table")
+        canvas.itemconfig(card_word, text=current_card["Table"])
+        canvas.itemconfig(card_background, image=card_front_img)
+    except IndexError:
+        messagebox.showwarning(title="Warning", message="You have answered all the questions. Please close the app")
 
 
 def answer_card():
@@ -30,10 +33,15 @@ def wrong_card():
 
 
 def is_known():
-    # to_learn.remove(current_card)
-    canvas.itemconfig(card_title, text="Correct!")
-    canvas.itemconfig(card_word, text="Next Q")
-    canvas.itemconfig(card_background, image=card_back_img)
+    try:
+        to_learn.remove(current_card)
+        # print(len(to_learn))
+        canvas.itemconfig(card_title, text="Correct! Next Q")
+        # canvas.itemconfig(card_word, text="Next Q")
+        # canvas.itemconfig(card_background, image=card_back_img)
+    except ValueError:
+        messagebox.showwarning(title="Oops!",
+                               message="You clicked the green check mark already. Pick the next question.")
 
 
 # ******************** UI *********************
