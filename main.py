@@ -1,7 +1,6 @@
 from tkinter import *
 import pandas
 import random
-# from tkinter import messagebox
 
 # ******************** Functions *********************
 data = pandas.read_csv("data/multiplication.csv")
